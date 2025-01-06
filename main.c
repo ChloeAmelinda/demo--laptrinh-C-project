@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 	int n=5;
 	int count=0; 
 	int choice;
-//	SaveLibraryToFile(menu, n);
+	SaveLibraryToFile(menu, n);
 	printf("**** Library management using C ****\n");
 	printf("Ban co 2 lua chon :\n");
 	printf("1. Quan li sach trong thu vien\n");

@@ -73,7 +73,7 @@ void addbook(Book menu[], int *n) {
     printf("Nhap gia tien cua sach: ");
     scanf("%d", &menu[*n].price); 
 	(*n)++;
-
+	printf("Them thong tin sach thanh cong\n");
 	
 }
 void updatebook(Book menu[], int n){
@@ -118,6 +118,8 @@ void updatebook(Book menu[], int n){
 		
 		printf("Moi ban nhap vao gia tien : \n");
 		scanf("%d", &menu[findIndex].price);
+		
+		printf("Sua thong tin sach thanh cong \n");
 		}
 }
 void deletebook(Book menu [], int *n){
@@ -144,6 +146,7 @@ void deletebook(Book menu [], int *n){
 		}
 		(*n)=*n -1;
 		printf("%d ", *n);
+		printf("Xoa thong tin sach thanh cong\n");
 	}
 	// gan lai id moi cho sach 
 	for (i = 0; i < *n; i++) {
@@ -219,7 +222,7 @@ void SaveLibraryToFile(Book menu [], int n){
 		printf("Khong mo duoc file");
 	}
 	fwrite(menu,sizeof(Book),n,ptr);
-	printf("Luu thong tin thanh cong");
+	//printf("Luu thong tin thanh cong");
 	// Dong file 
 	fclose(ptr);
 }
@@ -369,7 +372,7 @@ void SaveMemberToFile(member list[], int n){
 		printf("Khong mo duoc file");
 	}
 	fwrite(list,sizeof(member),n,ptr);
-	printf("Luu thong tin thanh cong");
+	//printf("Luu thong tin thanh cong");
 	// Dong file 
 	fclose(ptr);
 }

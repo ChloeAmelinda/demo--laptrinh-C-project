@@ -15,5 +15,5 @@ typedef struct{
 }member; 
 
 typedef struct{
-	int day, month, year;
+	int day, month, year;	
 }Date;
