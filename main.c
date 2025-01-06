@@ -17,11 +17,11 @@ int main(int argc, char *argv[]) {
 	};
 	  // danh sach khach hang
 	member list[100]={
-	{1,"Vu Thu Trang" , "12345678", "changiuoi"},
-	{2,"Krista Antony" , "0246810" ,"thich ngu "},
-	{3,"chloe Amelinda" , "1357911", "hahaha"},
-	{4,"Bach Phung Nghi" , "87654321", "oioioi"},
-	{5,"Yuki Yamamoto" , "123454321", "8386"},
+	{1,"Vu Thu Trang" , "12345678","online"},
+	{2,"Krista Antony" , "0246810" ,"offline "},
+	{3,"chloe Amelinda" , "1357911", "online"},
+	{4,"Bach Phung Nghi" , "87654321", "online"},
+	{5,"Yuki Yamamoto" , "123454321", "offline "},
 	
 	};
 	// khai bao bien 
@@ -47,6 +47,7 @@ int main(int argc, char *argv[]) {
 		switch(choice){
 			case 1:
 				printfBook( menu, n);
+				LoadLibraryFromFile(menu, &n);
 				GobackOrExit();
 				printf("\n");
 				break;
@@ -54,7 +55,6 @@ int main(int argc, char *argv[]) {
 				addbook(menu, &n);
 				SaveLibraryToFile(menu, n);
 				GobackOrExit();
-				
 				break;
 			case 3:
 				updatebook(menu, n);
@@ -103,6 +103,7 @@ int main(int argc, char *argv[]) {
 		switch (choice){
 			case 1:
 				printfMember( list, n);
+				
 				GobackOrExit();
 				
 				break;
@@ -121,19 +122,22 @@ int main(int argc, char *argv[]) {
 				break;
 			
 			case 4:
-				foundmember(list, &n);
+				foundmember(list, n);
 				SaveMemberToFile(list, n);
 				GobackOrExit();
 				break;
 			case 5:
-				printf("Thoat khoi chuong trinh\n");
-				printf("Cam on quy khach da su dung chuong trinh\n"); 
+				system("cls");
+				printf("*********** All Book *********** \n");
+				printf("Chuong trinh ket thuc \n");
+				printf("Cam on quy khach da su dung dich vu !");
+				printf("\n");
 				break;
 			default:
 				printf("Loi du lieu . Xin vui long nhap lai\n");
 			
 		}
-	}while(choice !=8);
+ 	}while(choice !=5);
 	}// quan li khach hang
 
 	return 0; 

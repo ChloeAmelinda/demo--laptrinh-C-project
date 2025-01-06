@@ -18,10 +18,10 @@ void displaymenu(){
 void printfBook(Book menu[], int n){
 	system("cls");
 	printf("*********** All Book *********** \n");
-	printf("| id     |         name        |       author              |     title             |     price |    \n");
+	printf("| id     |         name        |       author              |     title             |     price    |\n");
 	int i;
 	for(i=0; i<n ; i++){
-		printf("| %d\t |%-20s |    %-18s     |   %-15s     |     %d    |\n", menu[i].id , menu[i].namebook , menu[i].author, menu[i].title , menu[i].price);
+		printf("| %d\t |%-20s |    %-18s     |   %-15s     |     %-5d    |\n", menu[i].id , menu[i].namebook , menu[i].author, menu[i].title , menu[i].price);
 
 	}
 }
@@ -52,7 +52,7 @@ void addbook(Book menu[], int *n) {
 	menu[*n].namebook[strcspn(menu[*n].namebook, "\n")] = 0; 
 	if (!information(menu[*n].namebook)){
 			printf("Ten sach trong\n");
-		} else if(!length(menu[*n].namebook, 50)){
+		} else if(!length(menu[*n].namebook, 100)){
 			printf("Ten sach qua dai\n");
 		} else if(titleDuped(menu, *n, menu[*n].namebook)){
 			printf("Ten sach da ton tai\n");
@@ -81,7 +81,7 @@ void updatebook(Book menu[], int n){
 	printf("**** Library management using C ****\n");
 
 	int position;
-	printf("Moi ban nhap vao vi tri muon update:");
+	printf("Moi ban nhap vao vi tri muon thay doi:");
 	scanf("%d", &position);
 	int findIndex=-1;
 	int i; 
@@ -210,7 +210,7 @@ void foundbook(Book menu [], int n){
     }
     if(found == 0){
         printf("Khong tim thay ten sach ban vua nhap\n");
-        printf("Ban da nhap sai id. Vui long nhap lai !");
+        printf("Ban da nhap sai ten sach . Vui long nhap lai !");
     }
 }
 void SaveLibraryToFile(Book menu [], int n){
@@ -285,26 +285,53 @@ void printfMember( member list[], int n){
 				list[i].status);
 	}
 }
+int  TitleDuped(member list[], int n, char *title) {
+	int i;
+    for ( i = 0; i < n; i++) {
+        if (strcmp(list[i].namemember, title) == 0) {
+            return 1;
+        }
+    }
+    return 0; 
+}
 void addmember(member list[], int *n){
 	system("cls");
 	printf("**** Library management using C ****\n");
 	list[*n].memberId=*n+1;
+	do{
 	
 	printf("Them ten khach hang vao thu vien :");
 	fflush(stdin);
 	fgets(list[*n].namemember, sizeof(list[*n].namemember) , stdin);
 	list[*n].namemember[strcspn(list[*n].namemember, "\n")] = 0; 
-	
+	if (!information(list[*n].namemember)){
+			printf("Ten sach trong\n");
+		} else if(TitleDuped(list, *n, list[*n].namemember)){
+			printf("Ten sach da ton tai\n");
+		} else {
+			break;
+		}
+	}while(1);
+	do{
 	printf("Them so dien thoai khach hang :");
 	fflush(stdin);
 	fgets(list[*n].phonemember, sizeof(list[*n].phonemember) , stdin);
 	list[*n].phonemember[strcspn(list[*n].phonemember, "\n")] = 0; 
+	if (!information(list[*n].phonemember)){
+			printf("Ten sach trong\n");
+		} else if(TitleDuped(list, *n, list[*n].phonemember)){
+			printf("Ten sach da ton tai\n");
+		} else {
+			break;
+		}
+	}while(1);
 	
 	printf("Them the status cua khach hang :");
 	fflush(stdin);
 	fgets(list[*n].status, sizeof(list[*n].status) , stdin);
 	list[*n].status[strcspn(list[*n].status, "\n")] = 0; 
 	(*n)++;
+	printf("Them thong tin thanh cong\n");
 }
 void editmember(member list[], int n){
 	system("cls");
@@ -334,13 +361,13 @@ void editmember(member list[], int n){
 		fgets(list[findIndex].namemember, 100, stdin);
 		list[findIndex].namemember[strcspn(list[findIndex].namemember, "\n")] = '\0';
 		
-		printf("Moi ban nhap vao so dien thoai  : \n");
-		fgets(list[findIndex].phonemember, 100, stdin);
+		printf("Them so dien thoai khach hang :");
+		fflush(stdin);
+		fgets(list[n].phonemember, sizeof(list[n].phonemember) , stdin);
 		list[findIndex].phonemember[strcspn(list[findIndex].phonemember, "\n")] = '\0';
-		
 		}
 }
-void foundmember(member list[], int *n){
+void foundmember(member list[], int n){
 	system("cls");
 	printf("**** Library management using C ****\n");
 	char  ten[100];
@@ -349,8 +376,9 @@ void foundmember(member list[], int *n){
 	getchar();
 	scanf("%s", ten);
 	int i;
-    for( i = 0; i < *n; i++){
+    for( i = 0; i < n; i++){
         if(strstr(list[i].namemember , ten) != NULL){
+        	printf("|id      | name                | phone           | status     \n");
        		printf("| %d      | %s               | %s           |%s  \n", list[i].memberId,
 				list[i].namemember, 
 				list[i].phonemember,
@@ -361,7 +389,7 @@ void foundmember(member list[], int *n){
     }
     if(found == 0){
         printf("Khong tim thay ten khach hang vua nhap \n");
-        printf("Ban da nhap sai id. Vui long nhap lai !");
+        printf("Ban da nhap sai ten. Vui long nhap lai !");
     }
 }
 void SaveMemberToFile(member list[], int n){
@@ -387,7 +415,7 @@ void LoadMemberFromFile(member list[], int *n){
 	member readmember[100];
 	*n=fread(readmember,sizeof(member),100,ptr);
 	
-	printf("Lay Du Lieu Thanh Cong\n");
+	//printf("Lay Du Lieu Thanh Cong\n");
 	// Dong file 
 	fclose(ptr);	
 	}
