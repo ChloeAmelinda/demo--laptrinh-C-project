@@ -18,7 +18,7 @@ void displaymenu(){
 void printfBook(Book menu[], int n){
 	system("cls");
 	printf("*********** All Book *********** \n");
-	printf("| id     |         name        |       author              |     title             |     price  |    \n");
+	printf("| id     |         name        |       author              |     title             |     price |    \n");
 	int i;
 	for(i=0; i<n ; i++){
 		printf("| %d\t |%-20s |    %-18s     |   %-15s     |     %d    |\n", menu[i].id , menu[i].namebook , menu[i].author, menu[i].title , menu[i].price);
@@ -85,13 +85,6 @@ void updatebook(Book menu[], int n){
 	scanf("%d", &position);
 	int findIndex=-1;
 	int i; 
-	// hien thi danh sach truoc khi sua
-	printf("| id     |         name          |       author              |     title             |     price  |    \n");
-	printf("| %d\t |%-20s |    %-18s     |   %-15s     |     %d    |\n", 
-	   menu[position-1].id , menu[position].namebook ,
-	    menu[position-1].author,
-		 menu[position-1].title ,
-		  menu[position-1].price);
 	
 	for( i=0 ;i<n; i++){
 		if(menu[i].id==position){
@@ -103,6 +96,13 @@ void updatebook(Book menu[], int n){
 		printf("Khong tim thay sach de update \n");
 		printf("Ban da nhap khong dung id cua sach. Vui long nhap lai");
 	} else{
+		// hien thi danh sach truoc khi sua
+		printf("| id     |         name        |       author              |     title             |     price |    \n");
+		printf("| %d\t |%-20s |    %-18s     |   %-15s     |     %d    |\n", 
+			   menu[position-1].id , menu[position].namebook ,
+			    menu[position-1].author,
+				 menu[position-1].title ,
+				  menu[position-1].price);
 		getchar();
 		printf("Moi ban nhap vao ten sach : \n");
 		fgets(menu[findIndex].namebook, 100, stdin);
@@ -284,6 +284,7 @@ void printfMember( member list[], int n){
 }
 void addmember(member list[], int *n){
 	system("cls");
+	printf("**** Library management using C ****\n");
 	list[*n].memberId=*n+1;
 	
 	printf("Them ten khach hang vao thu vien :");
@@ -304,6 +305,7 @@ void addmember(member list[], int *n){
 }
 void editmember(member list[], int n){
 	system("cls");
+	printf("**** Library management using C ****\n");
 	int position;
 	printf("Moi ban nhap vao vi tri muon update:");
 	scanf("%d", &position);
@@ -319,6 +321,11 @@ void editmember(member list[], int n){
 		printf("Khong tim thay khach hang de sua \n");
 		printf("Ban da nhap khong dung id cua khach. Vui long nhap lai");
 	} else{
+		printf("|id      | name                | phone           | status     \n");
+		printf("| %d      | %-20s| %-16s|%-20s  \n", list[position-1].memberId,
+				list[position-1].namemember, 
+				list[position-1].phonemember,
+				list[position-1].status);
 		getchar();
 		printf("Moi ban nhap vao ten khach : \n");
 		fgets(list[findIndex].namemember, 100, stdin);
@@ -330,17 +337,17 @@ void editmember(member list[], int n){
 		
 		}
 }
-
 void foundmember(member list[], int *n){
 	system("cls");
-	char  ten;
+	printf("**** Library management using C ****\n");
+	char  ten[100];
 	int found=0;
 	printf("nhap ten khach hang can tim: ");
 	getchar();
-	scanf("%c", ten);
+	scanf("%s", ten);
 	int i;
     for( i = 0; i < *n; i++){
-        if(list[i].memberId == ten){
+        if(strstr(list[i].namemember , ten) != NULL){
        		printf("| %d      | %s               | %s           |%s  \n", list[i].memberId,
 				list[i].namemember, 
 				list[i].phonemember,
@@ -354,7 +361,6 @@ void foundmember(member list[], int *n){
         printf("Ban da nhap sai id. Vui long nhap lai !");
     }
 }
-void blockmember(member list[], int n);
 void SaveMemberToFile(member list[], int n){
 	// Mo file 
 	FILE *ptr=fopen("LibraryData.dat","wb");
